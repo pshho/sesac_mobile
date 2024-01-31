@@ -1,0 +1,122 @@
+package com.example.myapplication
+
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Intent
+import android.os.Bundle
+import android.os.Message
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.Window
+import android.webkit.*
+import android.widget.FrameLayout
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalMapOf
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.viewinterop.AndroidView
+import com.example.myapplication.ui.theme.MyApplicationTheme
+import java.net.URL
+
+class MainActivity : ComponentActivity() {
+    private var myWebView: WebView? = null
+
+    @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyApplicationTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                    AndroidView({context ->
+                        myWebView = WebView(context).apply {
+                            settings.javaScriptEnabled = true
+                            settings.javaScriptCanOpenWindowsAutomatically = true
+                            settings.setSupportMultipleWindows(true) // 새 창 띄우기
+                            settings.loadsImagesAutomatically = true
+                            settings.useWideViewPort = true // viewport 설정
+                            settings.loadWithOverviewMode = true // viewport와 같이 설정
+                            settings.setSupportZoom(true)
+                            settings.allowContentAccess = true // Content URL 접근 사용 여부
+                            settings.domStorageEnabled = true
+                            settings.userAgentString = "app"
+                            settings.defaultTextEncodingName = "UTF-8" // 인코딩
+                            settings.databaseEnabled = true // 데이터베이스 연결 허용
+                            settings.allowFileAccess = true // 파일 액세스 허용
+                            settings.blockNetworkImage = false // 네트워크 통해 이미지 리소스 받기
+
+                            webViewClient = WebViewClient()
+                            webChromeClient = object : WebChromeClient() {
+                                override fun onCreateWindow(
+                                    view: WebView?,
+                                    isDialog: Boolean,
+                                    isUserGesture: Boolean,
+                                    resultMsg: Message?
+                                ): Boolean {
+                                    val transport = resultMsg?.obj as? WebView.WebViewTransport
+                                    val newWebView = WebView(view!!.context).apply {
+                                        settings.javaScriptEnabled = true
+                                        settings.javaScriptCanOpenWindowsAutomatically = true
+                                        settings.setSupportMultipleWindows(true)
+                                        webViewClient = WebViewClient()
+                                        webChromeClient = WebChromeClient()
+                                    }
+
+                                    // Create a dialog and set the WebView as its content
+                                    val dialog = Dialog(view.context)
+                                    dialog.setContentView(newWebView)
+
+                                    // Set up the dialog properties (e.g., size, position)
+                                    // Here, you can customize the dialog according to your requirements
+
+                                    // Extract the URL from the original WebView and load it into the new WebView
+                                    val url = resultMsg?.data?.getString("url")
+                                    if (!url.isNullOrBlank()) {
+                                        newWebView.loadUrl(url)
+                                    }
+
+                                    // Show the dialog
+                                    dialog.show()
+                                    transport?.webView = newWebView
+                                    resultMsg?.sendToTarget()
+                                    return true
+                                }
+                            }
+                            loadUrl("http://www.nyw1001.shop")
+                        }
+                        myWebView!!
+                    })
+                }
+            }
+        }
+    }
+    override fun onBackPressed() {
+        if (myWebView!!.canGoBack()) {
+            myWebView?.goBack()
+        } else {
+            super.onBackPressed()
+        }
+    }
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+            text = "Hello $name!",
+            modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    MyApplicationTheme {
+        Greeting("Android")
+    }
+}
