@@ -12,7 +12,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.MyApplication"
             android:usesCleartextTraffic="true"
-            tools:targetApi="26">
+            tools:targetApi="24">
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
