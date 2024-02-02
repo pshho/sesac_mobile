@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,8 @@ import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.CheckRoot
+
 import java.net.URL
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +33,11 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val checkRoot = CheckRoot(this)
+        if (checkRoot.isRooted()) {
+            showRootingAlertDialog()
+            return
+        }
         setContent {
             MyApplicationTheme {
                 // A surface container using the 'background' color from the theme
@@ -50,6 +58,8 @@ class MainActivity : ComponentActivity() {
                             settings.databaseEnabled = true // 데이터베이스 연결 허용
                             settings.allowFileAccess = true // 파일 액세스 허용
                             settings.blockNetworkImage = false // 네트워크 통해 이미지 리소스 받기
+
+
 
                             webViewClient = WebViewClient()
                             webChromeClient = object : WebChromeClient() {
@@ -102,6 +112,17 @@ class MainActivity : ComponentActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun showRootingAlertDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("루팅 감지")
+            .setMessage("루팅이 감지되었습니다. 어플을 종료합니다.")
+            .setPositiveButton("확인") { _, _ ->
+                finish()
+            }
+            .setCancelable(false)
+            .show()
     }
 }
 
