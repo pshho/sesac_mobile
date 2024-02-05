@@ -1,11 +1,9 @@
-package com.example.myapplication;
+package com.sesac.mnstbank;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import com.example.myapplication.SLog;
-import com.example.myapplication.Const;
-import com.example.myapplication.CheckRootNative;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;

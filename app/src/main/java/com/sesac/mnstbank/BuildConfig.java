@@ -1,7 +1,7 @@
-package com.example.myapplication;
+package com.sesac.mnstbank;
 
 public final class BuildConfig {
-    public static final String APPLICATION_ID = "com.example.myapplication.NewWebViewActivity";
+    public static final String APPLICATION_ID = "com.sesac.mnstbank.NewWebViewActivity";
     public static final String BUILD_TYPE = "release";
     public static final boolean DEBUG = false;
     public static final String FLAVOR = "";

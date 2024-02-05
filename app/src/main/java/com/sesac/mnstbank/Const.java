@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.sesac.mnstbank;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class Const {
     public static String[] getPaths() {
         ArrayList arrayList = new ArrayList(Arrays.asList(suPaths));
         String str = System.getenv("PATH");
-        if (str == null || com.example.myapplication.BuildConfig.FLAVOR.equals(str)) {
+        if (str == null || com.sesac.mnstbank.BuildConfig.FLAVOR.equals(str)) {
             return (String[]) arrayList.toArray(new String[0]);
         }
         String[] split = str.split(":");

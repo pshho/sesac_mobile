@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.myapplication'
+    namespace 'com.sesac.mnstbank'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.myapplication"
+        applicationId "com.sesac.mnstbank"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -25,6 +25,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output->
+                    def appName = "Mnstbank"
+                    output.outputFileName = appName
+                }
+            }
         }
     }
     compileOptions {
