@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.sesac.mnstbank
 
 import android.annotation.SuppressLint
 import android.os.Bundle

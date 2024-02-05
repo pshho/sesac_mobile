@@ -1,16 +1,11 @@
-package com.example.myapplication
+package com.sesac.mnstbank
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.os.Message
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.Window
 import android.webkit.*
-import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,13 +14,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.myapplication.ui.theme.MyApplicationTheme
-import com.example.myapplication.CheckRoot
-
-import java.net.URL
+import com.sesac.mnstbank.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
     private var myWebView: WebView? = null
@@ -98,7 +89,7 @@ class MainActivity : ComponentActivity() {
                                     return true
                                 }
                             }
-                            loadUrl("http://www.nyw1001.shop")
+                            loadUrl("https://www.nyw1001.shop")
                         }
                         myWebView!!
                     })

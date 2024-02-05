@@ -1,6 +1,4 @@
-package com.example.myapplication;
-
-import com.example.myapplication.SLog;
+package com.sesac.mnstbank;
 
 public class CheckRootNative {
     private static boolean libraryLoaded = false;

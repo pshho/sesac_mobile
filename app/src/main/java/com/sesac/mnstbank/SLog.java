@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.sesac.mnstbank;
 
 import android.util.Log;
 import java.io.PrintWriter;

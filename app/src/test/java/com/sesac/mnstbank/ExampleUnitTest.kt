@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.sesac.mnstbank
 
 import org.junit.Test
 
