@@ -27,7 +27,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
                 variant.outputs.each { output->
-                    def appName = "Mnstbank"
+                    def appName = "Mnstbank.apk"
                     output.outputFileName = appName
                 }
             }
