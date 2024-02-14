@@ -89,7 +89,7 @@ class MainActivity : ComponentActivity() {
                                     return true
                                 }
                             }
-                            loadUrl("https://www.nyw1001.shop")
+                            loadUrl("https://mnstbank.com/")
                         }
                         myWebView!!
                     })
