@@ -3,7 +3,11 @@ package com.sesac.mnstbank
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.Message
 import android.webkit.*
 import androidx.activity.ComponentActivity
@@ -89,6 +93,21 @@ class MainActivity : ComponentActivity() {
                                     return true
                                 }
                             }
+                            setDownloadListener(DownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
+                                val request = DownloadManager.Request(Uri.parse(url))
+                                val filename = URLUtil.guessFileName(url, contentDisposition, mimetype)
+                                val cookies = CookieManager.getInstance().getCookie(url)
+                                request.addRequestHeader("cookie", cookies)
+                                request.addRequestHeader("User-Agent", userAgent)
+                                request.setDescription("Downloading file..")
+                                request.setTitle(filename)
+                                request.allowScanningByMediaScanner()
+                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename)
+                                val dManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                                dManager.enqueue(request)
+                            })
+
                             loadUrl("https://mnstbank.com/")
                         }
                         myWebView!!
